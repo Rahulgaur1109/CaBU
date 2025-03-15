@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Cab Pool</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-purple: #9370DB;
+            --secondary-purple: #E6E6FA;
+            --accent-purple: #D8BFD8;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--secondary-purple);
+        }
+
+        .header {
+            background: linear-gradient(rgba(147, 112, 219, 0.9), rgba(147, 112, 219, 0.8)),
+                        url('https://images.unsplash.com/photo-1556740714-a8395b3bf30f') center/cover;
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .cab-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 15px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 15px;
+        }
+
+        .create-btn {
+            background: var(--primary-purple);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: transform 0.2s;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+            z-index: 1000;
+            width: 90%;
+            max-width: 500px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid var(--accent-purple);
+            border-radius: 8px;
+            margin-top: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .cab-card {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 1.5rem;
+            }
+        }
+
+        .seat-indicator {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--primary-purple);
+        }
+
+        .map-preview {
+            height: 150px;
+            background: #f0f0f0;
+            border-radius: 10px;
+            margin: 10px 0;
+            background-image: url('https://maps.googleapis.com/maps/api/staticmap?center=College&zoom=13&size=600x150&key=YOUR_KEY');
+            background-size: cover;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--accent-purple);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>🚕 Campus Cab Pool</h1>
+        <p>Share Rides • Split Costs • Save Money</p>
+    </header>
+
+    <div class="container">
+        <button class="create-btn" onclick="showModal()">
+            <i class="fas fa-plus"></i> Create Ride
+        </button>
+
+        <div id="cabListings" class="cab-listings">
+            <!-- Sample Cab Card -->
+            <div class="cab-card">
+                <div>
+                    <h3>To: Downtown Mall</h3>
+                    <p>🕒 Departure: 4:30 PM</p>
+                    <div class="seat-indicator">
+                        <i class="fas fa-users"></i>
+                        <span>2/4 seats filled</span>
+                    </div>
+                    <p>Estimated cost per person: ₹75</p>
+                </div>
+                <button class="join-btn" onclick="joinRide()">Join Ride</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Ride Modal -->
+    <div id="createModal" class="modal">
+        <h2>Create New Ride</h2>
+        <div class="map-preview"></div>
+        <form onsubmit="createRide(event)">
+            <div class="form-group">
+                <label>Destination:</label>
+                <input type="text" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Departure Time:</label>
+                <input type="time" required>
+            </div>
+
+            <div class="form-group">
+                <label>Total Seats:</label>
+                <select required>
+                    <option value="2">2 Seats</option>
+                    <option value="4">4 Seats</option>
+                    <option value="6">6 Seats</option>
+                </select>
+            </div>
+
+            <button type="submit" class="create-btn">Create Ride</button>
+        </form>
+    </div>
+
+    <script>
+        // Temporary data storage
+        let rides = [];
+
+        function showModal() {
+            document.getElementById('createModal').style.display = 'block';
+        }
+
+        function createRide(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const newRide = {
+                destination: formData.get('destination'),
+                time: formData.get('time'),
+                seats: parseInt(formData.get('seats')),
+                occupants: 1,
+                id: Date.now()
+            };
+            rides.push(newRide);
+            updateRideListings();
+            document.getElementById('createModal').style.display = 'none';
+        }
+
+        function updateRideListings() {
+            const listings = document.getElementById('cabListings');
+            listings.innerHTML = rides.map(ride => `
+                <div class="cab-card">
+                    <div>
+                        <h3>To: ${ride.destination}</h3>
+                        <p>🕒 Departure: ${ride.time}</p>
+                        <div class="seat-indicator">
+                            <i class="fas fa-users"></i>
+                            <span>${ride.occupants}/${ride.seats} seats filled</span>
+                        </div>
+                        <p>Estimated cost per person: ₹${calculateFare(ride.destination)}</p>
+                    </div>
+                    <button class="join-btn" onclick="joinRide(${ride.id})">Join Ride</button>
+                </div>
+            `).join('');
+        }
+
+        function calculateFare(destination) {
+            // Simple fare calculation (replace with actual distance-based calculation)
+            const baseFare = 100;
+            const distanceFare = destination.length * 10;
+            return Math.round((baseFare + distanceFare) / 4); // Assuming 4 passengers
+        }
+
+        function joinRide(rideId) {
+            const ride = rides.find(r => r.id === rideId);
+            if (ride.occupants < ride.seats) {
+                ride.occupants++;
+                updateRideListings();
+            }
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('createModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
+    <!-- Add Google Maps Integration -->
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"></script>
+</body>
+</html>
