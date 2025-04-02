@@ -1,0 +1,311 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --radius: 0.625rem;
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.141 0.005 285.823);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.141 0.005 285.823);
+  --primary: oklch(0.21 0.006 285.885);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.967 0.001 286.375);
+  --secondary-foreground: oklch(0.21 0.006 285.885);
+  --muted: oklch(0.967 0.001 286.375);
+  --muted-foreground: oklch(0.552 0.016 285.938);
+  --accent: oklch(0.967 0.001 286.375);
+  --accent-foreground: oklch(0.21 0.006 285.885);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.92 0.004 286.32);
+  --input: oklch(0.92 0.004 286.32);
+  --ring: oklch(0.705 0.015 286.067);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.141 0.005 285.823);
+  --sidebar-primary: oklch(0.21 0.006 285.885);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.967 0.001 286.375);
+  --sidebar-accent-foreground: oklch(0.21 0.006 285.885);
+  --sidebar-border: oklch(0.92 0.004 286.32);
+  --sidebar-ring: oklch(0.705 0.015 286.067);
+
+  /* CABU Custom Colors */
+  --cabu-purple: #8D77AB;
+  --cabu-cream: #F9F6E6;
+  --cabu-white: #FFFFFF;
+  --cabu-black: #000000;
+  --cabu-text-light: #FFFFFFA6;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #ffffff; /* Keep it white even in dark mode preference */
+    --foreground: #000000;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.dark {
+  --background: #ffffff; /* Keep white in dark mode */
+  --foreground: #000000;
+  /* Keep other variables the same */
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* CABU Custom Responsive Styles */
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: #FFFFFF;
+}
+
+/* Left panel responsive */
+.w-\[132px\].h-\[1117px\] {
+  height: 100vh !important; /* Ensure it always fills the viewport height */
+}
+
+/* Default size adjustments for 100% zoom */
+.w-\[1107px\] {
+  width: 830px !important;
+}
+
+.h-\[700px\] {
+  height: 525px !important;
+}
+
+.w-\[478px\] {
+  width: 358px !important;
+}
+
+.w-\[406px\] {
+  width: 304px !important;
+}
+
+.h-\[403px\] {
+  height: 302px !important;
+}
+
+.w-\[290px\] {
+  width: 217px !important;
+}
+
+.h-\[290px\] {
+  height: 217px !important;
+}
+
+.text-\[28px\] {
+  font-size: 21px !important;
+}
+
+.my-\[145px\] {
+  margin-top: 108px !important;
+  margin-bottom: 108px !important;
+}
+
+.mt-\[-60px\] {
+  margin-top: -45px !important;
+}
+
+.mb-\[60px\] {
+  margin-bottom: 45px !important;
+}
+
+.h-\[73px\] {
+  height: 54px !important;
+}
+
+.mb-16 {
+  margin-bottom: 3rem !important;
+}
+
+.mb-8 {
+  margin-bottom: 1.5rem !important;
+}
+
+.rounded-\[60px\] {
+  border-radius: 45px !important;
+}
+
+.rounded-\[20px\] {
+  border-radius: 15px !important;
+}
+
+.rounded-\[10px\] {
+  border-radius: 8px !important;
+}
+
+.space-x-4 > * + * {
+  margin-left: 0.75rem !important;
+}
+
+.space-y-6 > * + * {
+  margin-top: 1.25rem !important;
+}
+
+.w-\[167px\] {
+  width: 125px !important;
+}
+
+.h-\[63px\] {
+  height: 47px !important;
+}
+
+/* Larger screens - scale up slightly */
+@media screen and (min-width: 1440px) {
+  .w-\[1107px\] {
+    width: 830px !important;
+  }
+  
+  .my-\[145px\] {
+    margin-top: 108px !important;
+    margin-bottom: 108px !important;
+  }
+}
+
+/* Fix layout for different viewport sizes */
+@media (max-width: 1200px) {
+  .w-\[1107px\] {
+    width: calc(100vw - 180px) !important;
+    min-width: 700px;
+  }
+}
+
+@media (max-width: 1100px) {
+  .flex.h-full {
+    flex-direction: column !important;
+  }
+  
+  .w-1\/2 {
+    width: 100% !important;
+  }
+  
+  .h-\[700px\] {
+    height: 675px !important;
+  }
+  
+  .w-\[478px\] {
+    width: 80% !important;
+    max-width: 358px;
+  }
+  
+  .w-\[406px\] {
+    width: 80% !important;
+    max-width: 304px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 900px) {
+  .w-\[132px\] {
+    width: 80px !important;
+  }
+  
+  .pl-\[132px\] {
+    padding-left: 80px !important;
+  }
+  
+  .w-\[1107px\] {
+    min-width: calc(100vw - 100px) !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .w-\[132px\] {
+    width: 60px !important;
+  }
+  
+  .pl-\[132px\] {
+    padding-left: 60px !important;
+  }
+  
+  .text-\[28px\] {
+    font-size: 18px !important;
+  }
+  
+  .h-\[73px\] {
+    height: 45px !important;
+  }
+  
+  .h-\[1117px\] {
+    height: 100% !important;
+  }
+  
+  .w-\[1107px\] {
+    min-width: unset !important;
+    width: calc(100vw - 80px) !important;
+  }
+}
+
+/* Ensure images don't break layout */
+img {
+  max-width: 100%;
+  height: auto;
+}
