@@ -20,11 +20,11 @@ document.addEventListener('DOMContentLoaded', function() {
       },
       {
         id: 3,
-        creatorName: "Mike T.",
+        creatorName: "Manit Kumar",
         creatorInitial: "M",
         rating: 4.2,
-        pickup: "Queens, Astoria",
-        destination: "Bronx Zoo",
+        pickup: "Bennett University",
+        destination: "Delta-I",
         date: "2025-04-16",
         time: "11:00",
         totalSeats: 4,
@@ -35,11 +35,11 @@ document.addEventListener('DOMContentLoaded', function() {
       },
       {
         id: 4,
-        creatorName: "Emma L.",
-        creatorInitial: "E",
+        creatorName: "Srishti Saahi",
+        creatorInitial: "S",
         rating: 4.9,
-        pickup: "Staten Island Ferry",
-        destination: "Times Square",
+        pickup: "Bennett University",
+        destination: "Pari Chowk",
         date: "2025-04-17",
         time: "14:45",
         totalSeats: 2,
@@ -160,7 +160,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function initMap() {
       if (mapElement) {
         // Initialize Leaflet map
-        map = L.map('map').setView([40.7128, -74.0060], 12);
+        map = L.map('map').setView([28.45080683818592, 77.58415488033597], 12);
         
         // Add tile layer
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -169,10 +169,10 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Add sample markers for rides
         const markers = [
-          { latlng: [40.7828, -73.9654], title: "Central Park", destination: "JFK Airport" },
-          { latlng: [40.7624, -73.9738], title: "Midtown", destination: "LaGuardia Airport" },
-          { latlng: [40.7484, -73.9857], title: "Times Square", destination: "Newark Airport" },
-          { latlng: [40.7114, -74.0053], title: "Financial District", destination: "Brooklyn Heights" }
+          { latlng: [28.45080683818592, 77.58415488033597], title: "Central Park", destination: "JFK Airport" }
+          // { latlng: [40.7624, -73.9738], title: "Midtown", destination: "LaGuardia Airport" },
+          // { latlng: [40.7484, -73.9857], title: "Times Square", destination: "Newark Airport" },
+          // { latlng: [40.7114, -74.0053], title: "Financial District", destination: "Brooklyn Heights" }
         ];
         
         markers.forEach(markerInfo => {
